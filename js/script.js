@@ -1,45 +1,61 @@
 var document, window, THREE;
 
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-var light = new THREE.AmbientLight( 0xbadce6 );
-
+// put canvas in the dom
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-var material = new THREE.MeshBasicMaterial( { color: 0xe63f52 } );
-var cube = new THREE.Mesh( geometry, material );
+// create a scene instance
+var scene = new THREE.Scene();
 
-scene.add( cube );
-scene.add( light );
-
+// generic camera instance
+var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.position.z = 5;
 
-// macro for cubes
+// lighting - currently non-functional
+var light = new THREE.AmbientLight( 0xbadce6 );
+scene.add( light );
 
-// y - to top screen then subsequently += random number
-// x - set as 2 * width * random-0.5
-// z - amplitude * rand-.5
+// object parameters
+var cubeColors = [0xe63f52, 0xf36279, 0xfc92a4];
+var numberOfShapes = 200;
 
-// color assignment
+var shapes = [];
 
-// hex codes from array at random
+for (var n = 0; n < numberOfShapes; n++) {
+  // create shapes
+  var geometry = new THREE.BoxGeometry( 0.5 * Math.random(), 0.5 * Math.random(), 0.5 * Math.random() );
+  var material = new THREE.MeshBasicMaterial( { color: cubeColors[Math.floor(Math.random() * cubeColors.length)]} );
+  shapes[n] = new THREE.Mesh( geometry, material );
 
+  // set properties
+  shapes[n].castShadow = true;
+  shapes[n].geometry.dynamic = true;
 
-var zoomOut = function () {
-  camera.position.z += 0.001;
+  // set initial position
+  shapes[n].translateX( 7 * ( Math.random() - 0.5 ) );
+  shapes[n].translateZ( 7 * ( Math.random() - 0.5 ) );
+  shapes[n].translateY( 20 + 7 * ( Math.random() - 0.5 ) );
+
+  // add to scene
+  scene.add( shapes[n] );
+}
+
+var zoomAmount = function (amount) {
+  camera.position.z -= amount;
 };
-
-cube.rotation.x = 0.25;
 
 var render = function () {
   requestAnimationFrame( render );
   renderer.render( scene, camera );
-  cube.rotation.y += 0.01;
-  cube.rotation.z += 0.01;
-  // zoomOut();
+  for (var n = 0; n < numberOfShapes; n++) {
+    shapes[n].rotation.x += 0.01 + 0.01 * n;
+    shapes[n].rotation.y += 0.02 + 0.01 * n;
+    shapes[n].rotation.z += 0.01 + 0.01 * n;
+    shapes[n].position.y -= 0.04 + 0.01 * n;
+  }
+
+  // zoomAmount(0.03);
 };
 
 render();
