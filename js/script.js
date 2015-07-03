@@ -18,7 +18,8 @@ function bricks() {
   scene.add( light );
 
   // object parameters
-  var cubeColors = [0xe63f52, 0xf36279, 0xfc92a4];
+  var cubeColors = [0xe63f52, 0xf36279, 0xfc92a4, 0xe74c39, 0xff6d37, 0xfbe446, 0xff5200, 0x00ae8e, 0xff4814, 0xf4436d, 0xcd3363, 0x773dbe, 0x8d9ebd, 0x69a3b9, 0x003595, 0x0047bb, 0x54c9e8, 0x30d9c4, 0x75e1c2, 0x71d54c, 0xe3e836];
+
   var numberOfShapes = 200;
 
   var shapes = [];
@@ -50,10 +51,11 @@ function bricks() {
     requestAnimationFrame( render );
     renderer.render( scene, camera );
     for (var n = 0; n < numberOfShapes; n++) {
-      shapes[n].rotation.x += 0.01 + 0.01 * n;
-      shapes[n].rotation.y += 0.02 + 0.01 * n;
-      shapes[n].rotation.z += 0.01 + 0.01 * n;
-      shapes[n].position.y -= 0.04 + 0.01 * n;
+      shapes[n].rotation.x += 0.01 * Math.random() + 0.01 * n;
+      shapes[n].rotation.y += 0.02 * Math.random() + 0.01 * n;
+      shapes[n].rotation.z += 0.01 * Math.random() + 0.01 * n;
+      shapes[n].position.y -= 0.04 * Math.random() + 0.01 * n;
+      shapes[n].position.x -= 0.02 * ( Math.random() - 0.5 );
     }
 
     // zoomAmount(0.03);
@@ -62,8 +64,8 @@ function bricks() {
   render();
 }
 
-// bricks();
+bricks();
 
-var elBody = document.getElementsByTagName("body");
+// var elBody = document.getElementsByTagName("body");
 
-elBody.addEventListener("click", bricks());
+// elBody.addEventListener("click", bricks());
