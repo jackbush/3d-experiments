@@ -1,26 +1,27 @@
 var document, window, THREE;
 
+// put canvas in the dom
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize( window.innerWidth, window.innerHeight );
+document.body.appendChild( renderer.domElement );
+
+// create a scene instance
+var scene = new THREE.Scene();
+
+// generic camera instance
+var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+camera.position.z = 5;
+
+// lighting - currently non-functional
+var light = new THREE.AmbientLight( 0xbadce6 );
+scene.add( light );
+
+// object parameters
+var cubeColors = [0xe63f52, 0xf36279, 0xfc92a4, 0xe74c39, 0xff6d37, 0xfbe446, 0xff5200, 0x00ae8e, 0xff4814, 0xf4436d, 0xcd3363, 0x773dbe, 0x8d9ebd, 0x69a3b9, 0x003595, 0x0047bb, 0x54c9e8, 0x30d9c4, 0x75e1c2, 0x71d54c, 0xe3e836];
+
+var numberOfShapes = 200;
+
 function bricks() {
-  // put canvas in the dom
-  var renderer = new THREE.WebGLRenderer();
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  document.body.appendChild( renderer.domElement );
-
-  // create a scene instance
-  var scene = new THREE.Scene();
-
-  // generic camera instance
-  var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-  camera.position.z = 5;
-
-  // lighting - currently non-functional
-  var light = new THREE.AmbientLight( 0xbadce6 );
-  scene.add( light );
-
-  // object parameters
-  var cubeColors = [0xe63f52, 0xf36279, 0xfc92a4, 0xe74c39, 0xff6d37, 0xfbe446, 0xff5200, 0x00ae8e, 0xff4814, 0xf4436d, 0xcd3363, 0x773dbe, 0x8d9ebd, 0x69a3b9, 0x003595, 0x0047bb, 0x54c9e8, 0x30d9c4, 0x75e1c2, 0x71d54c, 0xe3e836];
-
-  var numberOfShapes = 200;
 
   var shapes = [];
 
@@ -64,8 +65,8 @@ function bricks() {
   render();
 }
 
-bricks();
+// var elButton = document.getElementsByClassName("trigger");
+// console.log(elButton);
+// elButton.addEventListener("click", bricks);
 
-// var elBody = document.getElementsByTagName("body");
-
-// elBody.addEventListener("click", bricks());
+document.body.addEventListener("click", bricks);
