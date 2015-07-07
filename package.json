@@ -1,0 +1,12 @@
+{
+  "name": "threejs-experiment",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "Jack Bush",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.5.1",
+    "express": "^4.13.1",
+    "prismic.io": "^1.1.8"
+  }
+}
