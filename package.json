@@ -6,7 +6,6 @@
   "license": "ISC",
   "dependencies": {
     "compression": "^1.5.1",
-    "express": "^4.13.1",
-    "prismic.io": "^1.1.8"
+    "express": "^4.13.1"
   }
 }
